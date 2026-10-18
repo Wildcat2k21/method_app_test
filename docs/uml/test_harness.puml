@@ -1,0 +1,88 @@
+@startuml test_harness
+' Тестовый стенд лабораторных работ и его связь с кодом игры.
+title Тестовый стенд (labs/common) и тестовые цели
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+hide empty members
+
+package "snake_game (библиотека)" {
+  interface FoodSpawner <<trait>> {
+    +pick(free: &[Cell]): Option<Cell>
+  }
+  class SnakeLogicPlugin <<Plugin>>
+  class GameConfig <<Resource>>
+  class FoodSource <<Resource>>
+  FoodSource o-- FoodSpawner
+}
+
+package "labs/common" {
+  class Harness <<struct>> {
+    +app: App
+    +new(cfg, food): Self
+    +playing(cfg, food): Self
+    .. действия игрока ..
+    +press(key: KeyCode)
+    +start()
+    +turn(dir)
+    +frame()
+    +advance(dt)
+    +tick()
+    +ticks(n)
+    .. наблюдение ..
+    +state(): GameState
+    +pause(): Option<Pause>
+    +snake(): Vec<Cell>
+    +food(): Option<Cell>
+    +heading(): Heading
+    +score(): u32
+    +best(): u32
+    +last_round(): Option<RoundEnd>
+    +interval(): Duration
+  }
+  class ScriptedSpawner <<struct>> {
+    -queue: VecDeque<Cell>
+    +new(cells): Self
+  }
+  ScriptedSpawner ..|> FoodSpawner
+  Harness ..> SnakeLogicPlugin : MinimalPlugins + StatesPlugin + InputPlugin
+  Harness ..> GameConfig
+  Harness ..> ScriptedSpawner : подставляет в FoodSource
+}
+
+package "labs/lb5 (внутри библиотеки, #[path])" {
+  class SpySpawner <<struct>> {
+    -seen: Arc<Mutex<Vec<Cell>>>
+    -answer: Option<Cell>
+  }
+  SpySpawner ..|> FoodSpawner
+}
+
+package "Тестовые цели Cargo" {
+  class lb1 <<test target>> {
+    белый ящик: check_move, parse, interval
+  }
+  class lb2 <<test target>> {
+    автоматизация сценариев MT-1…MT-9
+  }
+  class lb3 <<test target>> {
+    интеграция систем ECS
+  }
+  class lb4 <<test target>> {
+    производительность, стресс
+  }
+  class lb6 <<test target>> {
+    десктоп: окно, файл рекорда
+  }
+  class "lib lb5" as lb5 <<unit>> {
+    core::lb5, game::lb5
+  }
+}
+
+lb2 ..> Harness
+lb3 ..> Harness
+lb4 ..> Harness
+lb6 ..> Harness
+lb5 ..> SpySpawner
+@enduml

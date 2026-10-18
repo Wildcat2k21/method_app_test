@@ -1,0 +1,34 @@
+[package]
+name = "snake_game"
+version = "0.1.0"
+edition = "2024"
+default-run = "snake_game"
+
+[dependencies]
+# Версия и фичи bevy (в т.ч. dynamic_linking) - в корневом Cargo.toml workspace
+bevy = { workspace = true }
+workspace-hack = { workspace = true } # единый набор фич, см. README.md workspace
+rand = "0.10.3" # та же версия и фичи, что в workspace-hack: новой копии bevy не будет
+
+# Тесты лабораторных работ: каждая работа - отдельная тестовая цель в labs/lbN/.
+# Запуск одной работы: cargo test --test lb1 (см. README.md и scripts/test.sh).
+# ЛР5 (unit) - модульные тесты внутри библиотеки: cargo test --lib lb5.
+[[test]]
+name = "lb1"
+path = "labs/lb1/main.rs"
+
+[[test]]
+name = "lb2"
+path = "labs/lb2/main.rs"
+
+[[test]]
+name = "lb3"
+path = "labs/lb3/main.rs"
+
+[[test]]
+name = "lb4"
+path = "labs/lb4/main.rs"
+
+[[test]]
+name = "lb6"
+path = "labs/lb6/main.rs"

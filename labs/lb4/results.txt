@@ -1,0 +1,14 @@
+Протокол: lb4
+Дата:     2026-10-18 22:29:34
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --test lb4
+
+
+running 3 tests
+test performance::free_cells_frame_limit ... ignored, замер: запускать в --release с --ignored --nocapture
+test performance::free_cells_scaling ... ignored, замер: запускать в --release с --ignored --nocapture
+test performance::tick_fits_frame_budget_on_default_board ... ok
+
+test result: ok. 1 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

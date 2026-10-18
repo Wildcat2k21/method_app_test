@@ -1,0 +1,115 @@
+@startuml architecture_ecs
+' Пакет game: ECS-слой на Bevy. Стереотип - роль типа в Bevy.
+' Типы из core показаны только по имени (подробно - architecture_core).
+title Змейка: game - ECS-слой на Bevy
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+hide empty members
+set separator none
+left to right direction
+skinparam nodesep 12
+skinparam ranksep 40
+
+package "Плагины" {
+  interface Plugin <<trait Bevy>> {
+    +build(app: &mut App)
+  }
+  class SnakeGamePlugin
+  class SnakeLogicPlugin
+  class ViewPlugin
+  class UiPlugin
+  SnakeGamePlugin *-- SnakeLogicPlugin
+  SnakeGamePlugin *-- ViewPlugin
+  SnakeGamePlugin *-- UiPlugin
+  SnakeLogicPlugin ..|> Plugin
+  ViewPlugin ..|> Plugin
+  UiPlugin ..|> Plugin
+}
+
+package "Состояния" {
+  enum GameState <<States>> {
+    Menu
+    Playing
+    GameOver
+  }
+  enum Pause <<SubStates>> {
+    Running
+    Paused
+  }
+  Pause ..> GameState : только в Playing
+}
+
+package "Компоненты" {
+  class GridPos <<Component>> {
+    +0: Cell
+  }
+  class SnakeSegment <<Component>>
+  class SnakeHead <<Component>>
+  class Food <<Component>>
+  class Heading <<Component>> {
+    +current: Direction
+    +queued: Option<Direction>
+    +request(dir): bool
+    +advance(): Direction
+  }
+}
+
+package "Ресурсы" {
+  class GameConfig <<Resource>> {
+    +board: Board
+    +initial_len: usize
+    +start_direction: Direction
+    +speed: SpeedRules
+    +seed: Option<u64>
+    +best_score_file: Option<PathBuf>
+  }
+  class SnakeBody <<Resource>> {
+    +0: Vec<Entity>
+  }
+  class FoodSource <<Resource>> {
+    +0: Box<dyn FoodSpawner>
+  }
+  class MoveTimer <<Resource>> {
+    +0: Timer
+  }
+  class "Score, BestScore" as Scores <<Resource>> {
+    +0: u32
+  }
+  class LastTail <<Resource>> {
+    +0: Option<Cell>
+  }
+  class LastRound <<Resource>> {
+    +0: Option<RoundEnd>
+  }
+  enum RoundEnd {
+    HitWall
+    HitSelf
+    BoardFilled
+  }
+  LastRound --> RoundEnd
+}
+
+package "Сообщения" {
+  class FoodEaten <<Message>> {
+    +at: Cell
+  }
+  class RoundOver <<Message>> {
+    +0: RoundEnd
+  }
+}
+
+package "core" {
+  class "rules" as core_rules <<module>>
+  interface "FoodSpawner" as core_spawner <<trait>>
+}
+
+SnakeLogicPlugin ..> GameState : init_state
+SnakeLogicPlugin ..> core_rules : системы вызывают
+SnakeBody o-- "1..*" SnakeSegment : Entity
+FoodSource o-- core_spawner
+Heading ..> core_rules : turn()
+RoundOver --> RoundEnd
+
+@enduml

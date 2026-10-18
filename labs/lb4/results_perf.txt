@@ -1,0 +1,27 @@
+Протокол: lb4
+Дата:     2026-10-18 23:07:47
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --release --test lb4 -- --ignored --nocapture --test-threads=1
+
+
+running 2 tests
+test performance::free_cells_frame_limit ... 100×100: 23.441µs
+200×200: 101.11µs
+400×400: 391.603µs
+800×800: 967.52µs
+1600×1600: 4.52016ms
+3200×3200: 28.616896ms
+предел: поле 3200×3200 (10240000 клеток)
+ok
+test performance::free_cells_scaling ...        поле     клеток   free_cells    нс/клетку
+      20×20        400      1.220µs         3.05
+      50×50       2500      5.995µs         2.40
+    100×100      10000     19.261µs         1.93
+    200×200      40000     52.975µs         1.32
+    500×500     250000    321.553µs         1.29
+  1000×1000    1000000      1.352ms         1.35
+ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.25s
+

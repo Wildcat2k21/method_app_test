@@ -1,0 +1,72 @@
+@startuml architecture_core
+' Пакет core: правила игры без зависимостей от Bevy.
+' В Rust классов нет: здесь структуры, перечисления, трейты и модули (функции).
+title Змейка: core - правила без Bevy
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide empty members
+
+class Cell <<struct>> {
+  +x: i32
+  +y: i32
+  +step(dir: Direction): Cell
+}
+enum Direction {
+  Up
+  Down
+  Left
+  Right
+  +delta(): (i32, i32)
+  +opposite(): Direction
+}
+class Board <<struct>> {
+  +width: i32
+  +height: i32
+  +contains(cell): bool
+  +area(): usize
+  +center(): Cell
+  +index(cell): usize
+  +cells(): Iterator<Cell>
+}
+enum Collision {
+  Wall
+  Body
+}
+class SpeedRules <<struct>> {
+  +base: Duration
+  +min: Duration
+  +step: Duration
+  +every: u32
+  +interval(score): Duration
+  +level(score): u32
+}
+class rules <<module>> {
+  +turn(current, requested): Option<Direction>
+  +check_move(board, body, next): Result<(), Collision>
+  +free_cells(board, occupied): Vec<Cell>
+  +initial_snake(board, len, dir): Vec<Cell>
+}
+interface FoodSpawner <<trait>> {
+  +pick(free: &[Cell]): Option<Cell>
+}
+class RandomSpawner <<struct>> {
+  -rng: StdRng
+  +seeded(seed): Self
+  +from_entropy(): Self
+}
+class highscore <<module>> {
+  +parse(text): Option<u32>
+  +load(path): u32
+  +save(path, best): io::Result
+}
+
+rules ..> Board
+rules ..> Cell
+rules ..> Direction
+rules ..> Collision
+Cell ..> Direction
+Board ..> Cell
+RandomSpawner ..|> FoodSpawner
+FoodSpawner ..> Cell
+@enduml

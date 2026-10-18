@@ -1,0 +1,20 @@
+Протокол: lb2
+Дата:     2026-10-18 22:29:34
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --test lb2
+
+
+running 9 tests
+test scenarios::mt1_enter_starts_round ... ok
+test scenarios::mt4_reverse_is_ignored ... ok
+test scenarios::mt5_eating_grows_and_scores ... ok
+test scenarios::mt3_arrow_turns_snake ... ok
+test scenarios::mt2_snake_moves_one_cell_per_tick ... ok
+test scenarios::mt9_menu_from_pause ... ok
+test scenarios::mt7_wall_ends_round ... ok
+test scenarios::mt8_enter_restarts_after_game_over ... ok
+test scenarios::mt6_pause_freezes_and_resumes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

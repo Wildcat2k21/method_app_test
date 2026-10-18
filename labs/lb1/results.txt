@@ -1,0 +1,34 @@
+Протокол: lb1
+Дата:     2026-10-18 22:29:33
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --test lb1
+
+
+running 23 tests
+test check_move::b1_c1_left_wall ... ok
+test check_move::b1_false_on_every_corner ... ok
+test check_move::b3_false_tail_cell_is_free ... ok
+test check_move::b1_c3_bottom_wall ... ok
+test check_move::c5_empty_body_does_not_panic ... ok
+test check_move::b1_c4_top_wall ... ok
+test check_move::c5_single_segment ... ok
+test highscore_parse::b1_c1_empty ... ok
+test check_move::b1_c2_right_wall ... ok
+test check_move::b3_true_hits_body ... ok
+test highscore_parse::b1_c2_letters ... ok
+test highscore_parse::b1_c2_minus_sign ... ok
+test check_move::b4_free_cell ... ok
+test highscore_parse::b1_c1_only_whitespace ... ok
+test highscore_parse::b1_c2_plus_sign_is_rejected ... ok
+test highscore_parse::b2_err_overflow ... ok
+test highscore_parse::b2_ok_max ... ok
+test speed_interval::b1_none_every_zero_never_speeds_up ... ok
+test highscore_parse::b2_ok_with_newline ... ok
+test speed_interval::b1_some_level_grows_every_n_points ... ok
+test speed_interval::b2_saturates_instead_of_underflow ... ok
+test speed_interval::b3_clamped_to_min ... ok
+test speed_interval::b3_not_clamped_above_min ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

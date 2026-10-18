@@ -1,0 +1,17 @@
+Протокол: lb3
+Дата:     2026-10-18 22:29:34
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --test lb3
+
+
+running 6 tests
+test integration::fr4_new_segment_appears_where_tail_was ... ok
+test integration::food_never_spawns_on_snake ... ok
+test integration::fr7_filling_board_wins ... ok
+test integration::fr6_biting_self_ends_round ... ok
+test integration::fr5_speed_increases_every_five_points ... ok
+test integration::fr8_best_score_survives_restart ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

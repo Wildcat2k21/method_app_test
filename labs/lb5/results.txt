@@ -1,0 +1,30 @@
+Протокол: lb5
+Дата:     2026-10-18 22:29:35
+Система:  Linux 7.0.0-38-generic x86_64
+Rust:     rustc 1.98.1 (48a229cea 2026-09-01)
+Команда:  cargo test --lib lb5
+
+
+running 19 tests
+test core::lb5::degenerate_board_has_no_cells ... ok
+test core::lb5::board_cells_cover_area_in_index_order ... ok
+test core::lb5::opposite_is_involution_and_steps_back ... ok
+test core::lb5::random_spawner_is_reproducible_by_seed ... ok
+test core::lb5::initial_snake_trails_behind_head ... ok
+test core::lb5::random_spawner_picks_only_from_free ... ok
+test game::lb5::heading_advance_consumes_queue_once ... ok
+test core::lb5::step_moves_by_one_cell ... ok
+test core::lb5::random_spawner_none_when_board_full ... ok
+test game::lb5::eat_food_scores_and_despawns ... ok
+test game::lb5::eat_food_ignores_food_elsewhere ... ok
+test game::lb5::move_snake_shifts_every_segment ... ok
+test core::lb5::turn_allows_only_perpendicular ... ok
+test game::lb5::spawn_food_without_place_wins_round ... ok
+test core::lb5::free_cells_excludes_snake_and_ignores_outside ... ok
+test game::lb5::move_snake_reports_wall_and_stays ... ok
+test game::lb5::heading_rejects_reverse_even_after_queued_turn ... ok
+test core::lb5::initial_snake_is_clipped_by_board ... ok
+test game::lb5::spawn_food_offers_only_free_cells_and_places_answer ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
